@@ -131,9 +131,12 @@ export class WifiManager {
             return;
         }
 
-        Variable.derive([bind(this._astalNetwork.wifi, 'accessPoints')], (axsPoints) => {
-            this.wifiAccessPoints.set(axsPoints);
-        });
+        this._accessPointBinding = Variable.derive(
+            [bind(this._astalNetwork.wifi, 'accessPoints')],
+            (axsPoints) => {
+                this.wifiAccessPoints.set(axsPoints);
+            },
+        );
     }
 
     /**

@@ -86,7 +86,7 @@ export const AccessPoint = ({ connecting, accessPoint }: AccessPointProps): JSX.
                 networkService.wifi.connectToAP(accessPoint, event);
             }}
             setup={(self) => {
-                self.connect('unrealize', () => {
+                self.connect('destroy', () => {
                     if (!isDestroying) {
                         isDestroying = true;
                         // Drop all derived Variables to prevent memory leaks
@@ -101,9 +101,7 @@ export const AccessPoint = ({ connecting, accessPoint }: AccessPointProps): JSX.
                 <revealer halign={Gtk.Align.END} valign={Gtk.Align.CENTER} revealChild={bind(showSpinnerVar)}>
                     <Spinner
                         className="spinner wap"
-                        setup={(self: Gtk.Spinner) => {
-                            self.start();
-                        }}
+                        active={bind(showSpinnerVar)}
                         halign={Gtk.Align.CENTER}
                         valign={Gtk.Align.CENTER}
                     />

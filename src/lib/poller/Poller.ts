@@ -10,6 +10,7 @@ const { layouts } = options.bar;
  */
 export class Poller {
     private _intervalInstance: AstalIO.Time | null = null;
+    private _pollerBinding: Variable<void> | null = null;
     private _isExecuting: boolean = false;
     private _pollingFunction: () => Promise<void>;
 
@@ -31,15 +32,23 @@ export class Poller {
      * Starts the polling process by setting up the interval.
      */
     public start(): void {
-        Variable.derive([this._pollingInterval, ...this._trackers], (intervalMs: number) => {
-            this._executePolling(intervalMs);
-        })();
+        this._pollerBinding?.drop();
+        this._pollerBinding = Variable.derive(
+            [this._pollingInterval, ...this._trackers],
+            (intervalMs: number) => {
+                this._executePolling(intervalMs);
+            },
+        );
     }
 
     /**
      * Stops the polling process and cleans up resources.
      */
     public stop(): void {
+        if (this._pollerBinding !== null) {
+            this._pollerBinding.drop();
+            this._pollerBinding = null;
+        }
         if (this._intervalInstance !== null) {
             this._intervalInstance.cancel();
             this._intervalInstance = null;

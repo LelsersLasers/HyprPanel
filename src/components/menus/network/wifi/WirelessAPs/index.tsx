@@ -33,7 +33,7 @@ export const WirelessAPs = (): JSX.Element => {
             className={'available-waps'}
             vertical
             setup={(self: { connect: (arg0: string, arg1: () => void) => void }) => {
-                self.connect('unrealize', () => {
+                self.connect('destroy', () => {
                     if (!isDestroying) {
                         isDestroying = true;
                         filteredWAPs.drop();

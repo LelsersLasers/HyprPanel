@@ -50,6 +50,7 @@ const MenuEntry = ({ item, child }: MenuEntryProps): JSX.Element => {
                 return console.error(`Action Group not found for ${item.id}`);
             }
 
+            menu?.destroy();
             menu = createMenu(menuModel, actionGroup);
         },
     );
