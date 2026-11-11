@@ -7,6 +7,8 @@
 
 # HyprPanel
 
+[Fork fixing some memory issues]
+
 A panel built for Hyprland with [Astal](https://github.com/Aylur/astal)
 
 ## Project Status
