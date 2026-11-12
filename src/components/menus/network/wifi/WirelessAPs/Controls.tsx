@@ -66,7 +66,7 @@ export const Controls = ({ connecting, accessPoint }: ControlsProps): JSX.Elemen
         <box
             valign={Gtk.Align.START}
             setup={(self) => {
-                self.connect('unrealize', () => {
+                self.connect('destroy', () => {
                     if (!isDestroying) {
                         isDestroying = true;
                         // Drop all derived Variables to prevent memory leaks

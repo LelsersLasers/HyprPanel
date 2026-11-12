@@ -98,7 +98,17 @@ const ClientTitle = (): BarBoxChild => {
         },
     );
 
-    const component = <box className={componentClassName()}>{componentChildren()}</box>;
+    const component = (
+        <box
+            className={componentClassName()}
+            onDestroy={() => {
+                componentClassName.drop();
+                componentChildren.drop();
+            }}
+        >
+            {componentChildren()}
+        </box>
+    );
 
     return {
         component,
@@ -108,7 +118,7 @@ const ClientTitle = (): BarBoxChild => {
             setup: (self: Astal.Button): void => {
                 let disconnectFunctions: (() => void)[] = [];
 
-                Variable.derive(
+                const inputBinding = Variable.derive(
                     [
                         bind(rightClick),
                         bind(middleClick),
@@ -145,6 +155,11 @@ const ClientTitle = (): BarBoxChild => {
                         );
                     },
                 );
+
+                self.connect('destroy', () => {
+                    disconnectFunctions.forEach((disconnect) => disconnect());
+                    inputBinding.drop();
+                });
             },
         },
     };
