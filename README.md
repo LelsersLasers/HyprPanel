@@ -1,3 +1,5 @@
+[Fork fixing some memory issues]
+
 > [!WARNING]
 > **Soon To Be Archived - no longer maintained.**
 >
@@ -6,8 +8,6 @@
 > See [archive notice](https://github.com/Jas-SinghFSU/HyprPanel/issues/1193).
 
 # HyprPanel
-
-[Fork fixing some memory issues]
 
 A panel built for Hyprland with [Astal](https://github.com/Aylur/astal)
 
